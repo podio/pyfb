@@ -2,7 +2,7 @@
     The implementation of the Facebook Client
 """
 
-from urlparse import parse_qsl
+import simplejson
 from utils import Json2ObjectsFactory
 import auth
 import requests
@@ -116,7 +116,7 @@ class FacebookClient(object):
 
         data = self._make_request(path="oauth/access_token", params=params, auth=False)
 
-        data = dict(parse_qsl(data))
+        data = simplejson.loads(data)
 
         self.access_token = data.get('access_token')
         self.expires = data.get('expires')
